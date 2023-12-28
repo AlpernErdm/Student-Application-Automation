@@ -11,4 +11,5 @@ public interface ResultDocumentService {
     void delete(int id);
     void update(int id,UpdateResultDocumentRequest updateResultDocumentRequest);
     List<GetAllResultDocumentsResponse> getall();
+
 }

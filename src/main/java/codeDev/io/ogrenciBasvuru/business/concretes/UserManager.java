@@ -8,6 +8,10 @@ import codeDev.io.ogrenciBasvuru.business.responses.GetAllUsersResponse;
 import codeDev.io.ogrenciBasvuru.core.utilities.mappers.ModelMapperService;
 import codeDev.io.ogrenciBasvuru.entities.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +36,7 @@ public class UserManager implements UserService {
         user.setName(updateUserRequest.getName());
         user.setSurname(updateUserRequest.getSurname());
         user.setEmail(updateUserRequest.getEmail());
+        user.setRole(updateUserRequest.getRole());
         this.userRepository.save(user);
     }
 
@@ -48,4 +53,19 @@ public class UserManager implements UserService {
                 .map(user -> this.modelMapperService.forResponse()
                         .map(user, GetAllUsersResponse.class)).collect(Collectors.toList());
     }
+
+    @Override
+    public Page<User> getUsersPagination(Integer pageNumber, Integer pageSize) {
+
+        Pageable pageable=PageRequest.of(pageNumber,pageSize);
+        return userRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<User> getUsersPaginationAndSorting(Integer pageNumber, Integer pageSize) {
+        Sort sort=Sort.by(Sort.Direction.ASC,"name");
+        Pageable pageable=PageRequest.of(pageNumber,pageSize,sort);
+        return userRepository.findAll(pageable);
+    }
+
 }

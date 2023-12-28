@@ -18,6 +18,6 @@ public class GetAllUsersResponse {
     private Date createDate;
     private Date lastModified;
     private String email;
-
+    private String role;
 
 }
