@@ -1,5 +1,6 @@
 package codeDev.io.ogrenciBasvuru.businessRules;
 
+import codeDev.io.ogrenciBasvuru.core.utilities.mappers.exceptions.EmailAlreadyExistsException;
 import codeDev.io.ogrenciBasvuru.core.utilities.mappers.exceptions.UserNotFoundException;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.UserRepository;
 import codeDev.io.ogrenciBasvuru.core.utilities.mappers.exceptions.UserNameExistException;
@@ -17,8 +18,14 @@ public class UserBusinessRules {
         }
     }
     public void checkIfUserIdNotExists(Integer id) {
-        if (this.userRepository.existsById(id)) {
+        if (!this.userRepository.existsById(id)) {
             throw new UserNotFoundException(String.format("User not found %s", id));
+        }
+
+    }
+    public void checkIfUserEmailExists(String email){
+        if(this.userRepository.existsByEmail(email)){
+            throw new EmailAlreadyExistsException(String.format("Email already exists"));
         }
     }
 }

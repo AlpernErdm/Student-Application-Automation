@@ -1,6 +1,10 @@
 package codeDev.io.ogrenciBasvuru.entities;
 
+import codeDev.io.ogrenciBasvuru.business.responses.GetByIdResultDocumentResponse;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +32,7 @@ public class User {
     private int id;
 
     @Column(name = "name")
+    @Size(min = 3,max = 20,message = "The name can be between 3 and 20 characters")
     private String name;
 
     @Column(name = "surname")
@@ -41,7 +46,7 @@ public class User {
     @LastModifiedDate
     private Date lastModified;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
 
     @Column(name = "role") //admin/user
@@ -49,5 +54,6 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private List<Application>applications =new ArrayList<>();
+
 
 }

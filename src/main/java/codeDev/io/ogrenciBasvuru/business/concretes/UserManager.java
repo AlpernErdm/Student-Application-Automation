@@ -1,5 +1,7 @@
 package codeDev.io.ogrenciBasvuru.business.concretes;
 
+import codeDev.io.ogrenciBasvuru.business.responses.GetByIdUserResponse;
+import codeDev.io.ogrenciBasvuru.businessRules.UserBusinessRules;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.UserRepository;
 import codeDev.io.ogrenciBasvuru.business.abstracts.UserService;
 import codeDev.io.ogrenciBasvuru.business.requests.CreateUserRequest;
@@ -22,9 +24,14 @@ import java.util.stream.Collectors;
 public class UserManager implements UserService {
     private final UserRepository userRepository;
     private final ModelMapperService modelMapperService;
+    private final UserBusinessRules userBusinessRules;
+
 
     @Override
     public void add(CreateUserRequest createUserRequest) {
+
+//        this.userBusinessRules.checkIfUserNameExist(createUserRequest.getName());
+        this.userBusinessRules.checkIfUserEmailExists(createUserRequest.getEmail());
         User user = this.modelMapperService.forRequest()
                 .map(createUserRequest, User.class);
         this.userRepository.save(user);
@@ -52,6 +59,14 @@ public class UserManager implements UserService {
         return users.stream()
                 .map(user -> this.modelMapperService.forResponse()
                         .map(user, GetAllUsersResponse.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public GetByIdUserResponse getById(int id) {
+        User user=this.userRepository.findById(id).orElseThrow();
+        this.userBusinessRules.checkIfUserIdNotExists(id);
+
+        return this.modelMapperService.forResponse().map(user,GetByIdUserResponse.class);
     }
 
     @Override

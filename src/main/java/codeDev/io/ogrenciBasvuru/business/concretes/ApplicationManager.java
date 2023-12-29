@@ -4,6 +4,8 @@ import codeDev.io.ogrenciBasvuru.business.abstracts.ApplicationService;
 import codeDev.io.ogrenciBasvuru.business.requests.CreateApplicationRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateApplicationsRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllApplicationsResponses;
+import codeDev.io.ogrenciBasvuru.business.responses.GetByIdApplicationResponse;
+import codeDev.io.ogrenciBasvuru.businessRules.ApplicationBusinessRules;
 import codeDev.io.ogrenciBasvuru.core.utilities.mappers.ModelMapperService;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ApplicationRepository;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.UserRepository;
@@ -20,6 +22,7 @@ public class ApplicationManager implements ApplicationService {
     private final ApplicationRepository applicationRepository;
     private final ModelMapperService modelMapperService;
     private final UserRepository userRepository;
+    private final ApplicationBusinessRules applicationBusinessRules;
 
     @Override
     public void add(CreateApplicationRequest createApplicationRequest) {
@@ -37,6 +40,13 @@ public class ApplicationManager implements ApplicationService {
     @Override
     public void delete(int id) {
         this.applicationRepository.deleteById(id);
+    }
+
+    @Override
+    public GetByIdApplicationResponse getById(int id) {
+        Application application=this.applicationRepository.findById(id).orElseThrow();
+        this.applicationBusinessRules.checkApplicationNotFound(id);
+        return this.modelMapperService.forResponse().map(application,GetByIdApplicationResponse.class);
     }
 
     @Override

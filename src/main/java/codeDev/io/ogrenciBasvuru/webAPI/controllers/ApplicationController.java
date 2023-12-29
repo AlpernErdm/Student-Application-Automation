@@ -4,6 +4,7 @@ import codeDev.io.ogrenciBasvuru.business.abstracts.ApplicationService;
 import codeDev.io.ogrenciBasvuru.business.requests.CreateApplicationRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateApplicationsRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllApplicationsResponses;
+import codeDev.io.ogrenciBasvuru.business.responses.GetByIdApplicationResponse;
 import codeDev.io.ogrenciBasvuru.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +33,13 @@ public class ApplicationController {
     public void update(@PathVariable int id, @RequestBody UpdateApplicationsRequest updateApplicationsRequest, User user) {
         this.applicationService.update(id, updateApplicationsRequest, user);
     }
-@DeleteMapping("/{id}")
+
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         this.applicationService.delete(id);
+    }
+    @GetMapping("/{id}")
+    public GetByIdApplicationResponse getById(@PathVariable int id){
+       return applicationService.getById(id);
     }
 }

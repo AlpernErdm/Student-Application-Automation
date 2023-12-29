@@ -13,7 +13,6 @@ import java.util.List;
 
 @Repository
 public interface ResultDocumentRepository extends JpaRepository<ResultDocument, Integer> {
-    @Query("SELECT b FROM Basvuru b WHERE b.ogrenci = :ogrenci AND YEAR(b.basvuruTarihi) = :year")
-    List<Application> findByUserAndApplicationDate(@Param("user") User user, @Param("year") int year);
+
 
 }

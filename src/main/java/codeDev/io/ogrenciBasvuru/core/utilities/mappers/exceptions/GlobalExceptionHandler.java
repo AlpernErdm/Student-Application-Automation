@@ -44,5 +44,12 @@ public class GlobalExceptionHandler {
         problemDetails.setMessage(applicationNotFoundException.getMessage());
         return problemDetails;
     }
+    @ExceptionHandler
+    @ResponseStatus(code=HttpStatus.BAD_REQUEST)
+    public ProblemDetails problemDetails(EmailAlreadyExistsException emailAlreadyExistsException){
+        ProblemDetails problemDetails=new ProblemDetails();
+        problemDetails.setMessage(emailAlreadyExistsException.getMessage());
+        return problemDetails;
+    }
 
 }

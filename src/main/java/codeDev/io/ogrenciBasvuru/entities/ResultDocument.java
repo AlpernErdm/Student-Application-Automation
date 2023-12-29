@@ -25,4 +25,5 @@ public class ResultDocument {
     @JoinColumn(name = "applicationId")
     private Application application;
 
+
 }

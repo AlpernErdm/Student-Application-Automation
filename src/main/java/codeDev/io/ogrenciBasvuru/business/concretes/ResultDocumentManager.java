@@ -4,6 +4,8 @@ import codeDev.io.ogrenciBasvuru.business.abstracts.ResultDocumentService;
 import codeDev.io.ogrenciBasvuru.business.requests.CreateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllResultDocumentsResponse;
+import codeDev.io.ogrenciBasvuru.business.responses.GetByIdResultDocumentResponse;
+import codeDev.io.ogrenciBasvuru.businessRules.ResultDocumentBusinessRules;
 import codeDev.io.ogrenciBasvuru.core.utilities.mappers.ModelMapperService;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ApplicationRepository;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ResultDocumentRepository;
@@ -22,6 +24,7 @@ public class ResultDocumentManager implements ResultDocumentService {
     private final ResultDocumentRepository resultDocumentRepository;
     private final ModelMapperService modelMapperService;
     private final ApplicationRepository applicationRepository;
+    private final ResultDocumentBusinessRules resultDocumentBusinessRules;
     @Override
     public void add(CreateResultDocumentRequest createResultDocumentRequest) {
         Application application=this.applicationRepository.findById(createResultDocumentRequest.getApplicationId()).get();
@@ -45,6 +48,15 @@ public class ResultDocumentManager implements ResultDocumentService {
     public void update(int id,UpdateResultDocumentRequest updateResultDocumentRequest) {
     ResultDocument resultDocument=this.resultDocumentRepository.findById(id).orElseThrow();
     resultDocument.setScore(updateResultDocumentRequest.getScore());
+    }
+
+    @Override
+    public GetByIdResultDocumentResponse getById(int id) {
+
+
+        ResultDocument resultDocument=this.resultDocumentRepository.findById(id).orElseThrow();
+        this.resultDocumentBusinessRules.checkIfResultDocumentNotFound(id);
+        return this.modelMapperService.forResponse().map(resultDocument,GetByIdResultDocumentResponse.class);
     }
 
     @Override
