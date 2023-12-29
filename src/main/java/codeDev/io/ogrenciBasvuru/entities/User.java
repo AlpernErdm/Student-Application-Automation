@@ -55,5 +55,10 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private List<Application>applications =new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private List<ResultDocument>resultDocument;
+
+
+
 
 }

@@ -48,6 +48,5 @@ public class Application {
     @JoinColumn(name = "userId")
     private User user;
 
-    @OneToMany(mappedBy = "application",cascade = CascadeType.ALL)
-    private List<ResultDocument> resultDocuments=new ArrayList<>();
+
 }

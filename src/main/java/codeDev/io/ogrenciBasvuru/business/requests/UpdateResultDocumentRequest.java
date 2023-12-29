@@ -10,7 +10,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UpdateResultDocumentRequest {
-    private int id;
     private int score;
     private int applicationId;
 }

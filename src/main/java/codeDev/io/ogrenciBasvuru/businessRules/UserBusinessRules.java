@@ -28,4 +28,9 @@ public class UserBusinessRules {
             throw new EmailAlreadyExistsException(String.format("Email already exists"));
         }
     }
+    public void checkIfUserIdNotFound(Integer id) {
+        if (!this.userRepository.existsById(id)) {
+            throw new UserNotFoundException(String.format("There is no one with this ID: %s", id));
+        }
+    }
 }

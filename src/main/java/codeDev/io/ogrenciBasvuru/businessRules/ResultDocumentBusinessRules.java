@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class ResultDocumentBusinessRules {
     private  ResultDocumentRepository resultDocumentRepository;
     public void checkIfResultDocumentNotFound(Integer id){
-        if(!this.resultDocumentRepository.existsById(id)){
+        if(this.resultDocumentRepository.existsById(id)){
             throw new ResultNotFoundException(String.format("Result document not found %s",id));
         }
     }

@@ -46,9 +46,16 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler
     @ResponseStatus(code=HttpStatus.BAD_REQUEST)
-    public ProblemDetails problemDetails(EmailAlreadyExistsException emailAlreadyExistsException){
+    public ProblemDetails handleEmailAlreadyExistsException(EmailAlreadyExistsException emailAlreadyExistsException){
         ProblemDetails problemDetails=new ProblemDetails();
         problemDetails.setMessage(emailAlreadyExistsException.getMessage());
+        return problemDetails;
+    }
+    @ExceptionHandler
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    public ProblemDetails handleNoPersonWithThisId( NoPersonWithThisId noPersonWithThisId) {
+        ProblemDetails problemDetails = new ProblemDetails();
+        problemDetails.setMessage(noPersonWithThisId.getMessage());
         return problemDetails;
     }
 

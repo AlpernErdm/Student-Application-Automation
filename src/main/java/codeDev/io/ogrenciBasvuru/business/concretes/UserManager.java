@@ -8,6 +8,8 @@ import codeDev.io.ogrenciBasvuru.business.requests.CreateUserRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateUserRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllUsersResponse;
 import codeDev.io.ogrenciBasvuru.core.utilities.mappers.ModelMapperService;
+import codeDev.io.ogrenciBasvuru.entities.Application;
+import codeDev.io.ogrenciBasvuru.entities.ResultDocument;
 import codeDev.io.ogrenciBasvuru.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +33,6 @@ public class UserManager implements UserService {
     @Override
     public void add(CreateUserRequest createUserRequest) {
 
-//        this.userBusinessRules.checkIfUserNameExist(createUserRequest.getName());
         this.userBusinessRules.checkIfUserEmailExists(createUserRequest.getEmail());
         User user = this.modelMapperService.forRequest()
                 .map(createUserRequest, User.class);
@@ -39,6 +41,7 @@ public class UserManager implements UserService {
 
     @Override
     public void update(UpdateUserRequest updateUserRequest, int id) {
+        this.userBusinessRules.checkIfUserIdNotFound(id);
         User user = this.userRepository.findById(id).orElseThrow();
         user.setName(updateUserRequest.getName());
         user.setSurname(updateUserRequest.getSurname());
@@ -63,24 +66,37 @@ public class UserManager implements UserService {
 
     @Override
     public GetByIdUserResponse getById(int id) {
-        User user=this.userRepository.findById(id).orElseThrow();
         this.userBusinessRules.checkIfUserIdNotExists(id);
+        User user = this.userRepository.findById(id).orElseThrow();
 
-        return this.modelMapperService.forResponse().map(user,GetByIdUserResponse.class);
+        return this.modelMapperService.forResponse().map(user, GetByIdUserResponse.class);
     }
 
     @Override
     public Page<User> getUsersPagination(Integer pageNumber, Integer pageSize) {
 
-        Pageable pageable=PageRequest.of(pageNumber,pageSize);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
         return userRepository.findAll(pageable);
     }
 
     @Override
     public Page<User> getUsersPaginationAndSorting(Integer pageNumber, Integer pageSize) {
-        Sort sort=Sort.by(Sort.Direction.ASC,"name");
-        Pageable pageable=PageRequest.of(pageNumber,pageSize,sort);
+        Sort sort = Sort.by(Sort.Direction.ASC, "name");
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
         return userRepository.findAll(pageable);
     }
+
+//    @Override
+//    public boolean userHasAppliedThisYear(User user) {
+//        List<Application> applications = user.getApplications();
+//        return applications.stream().anyMatch(sb -> sb.getApplicationYear().getYear()== LocalDate.now().getYear());
+//    }
+
+//    @Override
+//    public boolean ogrenciHasResultDocumentThisYear(User user) {
+//        List<ResultDocument>resultDocuments= user.getResultDocument();
+//        return resultDocuments.stream().anyMatch(sb -> sb.getResultDate().getYear() == LocalDate.now().getYear());
+//
+//    }
 
 }

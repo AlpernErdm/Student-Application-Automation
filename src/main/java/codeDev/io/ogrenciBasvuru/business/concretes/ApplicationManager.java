@@ -26,6 +26,8 @@ public class ApplicationManager implements ApplicationService {
 
     @Override
     public void add(CreateApplicationRequest createApplicationRequest) {
+        //başvurular tablosunda !userId'nın+buulundugumuz yılda 1 başvurusu var mı createapp den userid'sine bakıcaz
+        //userId!=userId öyleyse başvuru çek başvurunun current id sini çek ve izin verme
         User user = this.userRepository.findById(createApplicationRequest.getUserId()).get();
 
         Application application = new Application();
@@ -44,8 +46,8 @@ public class ApplicationManager implements ApplicationService {
 
     @Override
     public GetByIdApplicationResponse getById(int id) {
-        Application application=this.applicationRepository.findById(id).orElseThrow();
         this.applicationBusinessRules.checkApplicationNotFound(id);
+        Application application=this.applicationRepository.findById(id).orElseThrow();
         return this.modelMapperService.forResponse().map(application,GetByIdApplicationResponse.class);
     }
 

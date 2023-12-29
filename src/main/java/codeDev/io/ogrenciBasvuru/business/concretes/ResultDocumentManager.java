@@ -40,6 +40,8 @@ public class ResultDocumentManager implements ResultDocumentService {
 
     @Override
     public void delete(int id) {
+        this.resultDocumentBusinessRules.checkIfResultDocumentNotFound(id);
+
         this.resultDocumentRepository.deleteById(id);
 
     }
@@ -48,11 +50,13 @@ public class ResultDocumentManager implements ResultDocumentService {
     public void update(int id,UpdateResultDocumentRequest updateResultDocumentRequest) {
     ResultDocument resultDocument=this.resultDocumentRepository.findById(id).orElseThrow();
     resultDocument.setScore(updateResultDocumentRequest.getScore());
+    this.resultDocumentRepository.save(resultDocument);
     }
 
     @Override
     public GetByIdResultDocumentResponse getById(int id) {
 
+        this.resultDocumentBusinessRules.checkIfResultDocumentNotFound(id);
 
         ResultDocument resultDocument=this.resultDocumentRepository.findById(id).orElseThrow();
         this.resultDocumentBusinessRules.checkIfResultDocumentNotFound(id);
