@@ -9,6 +9,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,11 +44,17 @@ public class Application {
     private String desiredDepartment;// istenen bölüm
 
     @Column(name = "applicationYear")
-    private int applicationYear;
+    private LocalDate applicationYear;
 
     @ManyToOne()
     @JoinColumn(name = "userId")
     private User user;
+    @PrePersist
+    public void prePersist() {
+        // Yeni bir başvuru kaydedilirken bu metot otomatik olarak çağrılır
+        // applicationYear alanını güncel tarihle set eder
+        this.applicationYear = LocalDate.now();
+    }
 
 
 }

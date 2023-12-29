@@ -1,9 +1,9 @@
 package codeDev.io.ogrenciBasvuru.businessRules;
 
-import codeDev.io.ogrenciBasvuru.core.utilities.mappers.exceptions.EmailAlreadyExistsException;
-import codeDev.io.ogrenciBasvuru.core.utilities.mappers.exceptions.UserNotFoundException;
+import codeDev.io.ogrenciBasvuru.core.exceptions.EmailAlreadyExistsException;
+import codeDev.io.ogrenciBasvuru.core.exceptions.UserNotFoundException;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.UserRepository;
-import codeDev.io.ogrenciBasvuru.core.utilities.mappers.exceptions.UserNameExistException;
+import codeDev.io.ogrenciBasvuru.core.exceptions.UserNameExistException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

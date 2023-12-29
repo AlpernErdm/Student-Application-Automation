@@ -3,14 +3,9 @@ package codeDev.io.ogrenciBasvuru.webAPI.controllers;
 import codeDev.io.ogrenciBasvuru.business.abstracts.ResultDocumentService;
 import codeDev.io.ogrenciBasvuru.business.requests.CreateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateResultDocumentRequest;
-import codeDev.io.ogrenciBasvuru.business.responses.GetAllResultDocumentsResponse;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdResultDocumentResponse;
-import codeDev.io.ogrenciBasvuru.business.responses.GetByIdUserResponse;
-import codeDev.io.ogrenciBasvuru.core.utilities.mappers.ModelMapperService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/resultdocument")

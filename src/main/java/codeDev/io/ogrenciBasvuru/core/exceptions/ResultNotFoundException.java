@@ -1,4 +1,4 @@
-package codeDev.io.ogrenciBasvuru.core.utilities.mappers.exceptions;
+package codeDev.io.ogrenciBasvuru.core.exceptions;
 
 public class ResultNotFoundException  extends RuntimeException{
     public ResultNotFoundException(String message){

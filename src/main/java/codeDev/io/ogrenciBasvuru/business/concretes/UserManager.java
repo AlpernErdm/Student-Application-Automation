@@ -7,9 +7,7 @@ import codeDev.io.ogrenciBasvuru.business.abstracts.UserService;
 import codeDev.io.ogrenciBasvuru.business.requests.CreateUserRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateUserRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllUsersResponse;
-import codeDev.io.ogrenciBasvuru.core.utilities.mappers.ModelMapperService;
-import codeDev.io.ogrenciBasvuru.entities.Application;
-import codeDev.io.ogrenciBasvuru.entities.ResultDocument;
+import codeDev.io.ogrenciBasvuru.core.mappers.ModelMapperService;
 import codeDev.io.ogrenciBasvuru.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 

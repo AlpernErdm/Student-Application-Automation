@@ -1,4 +1,4 @@
-package codeDev.io.ogrenciBasvuru.core.utilities.mappers.exceptions;
+package codeDev.io.ogrenciBasvuru.core.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -56,6 +56,13 @@ public class GlobalExceptionHandler {
     public ProblemDetails handleNoPersonWithThisId( NoPersonWithThisId noPersonWithThisId) {
         ProblemDetails problemDetails = new ProblemDetails();
         problemDetails.setMessage(noPersonWithThisId.getMessage());
+        return problemDetails;
+    }
+    @ExceptionHandler
+    @ResponseStatus(code = HttpStatus.NOT_FOUND)
+    public ProblemDetails handleTheUserHasAnApplicationException( TheUserHasAnApplicationException theUserHasAnApplicationException ) {
+        ProblemDetails problemDetails = new ProblemDetails();
+        problemDetails.setMessage(theUserHasAnApplicationException.getMessage());
         return problemDetails;
     }
 

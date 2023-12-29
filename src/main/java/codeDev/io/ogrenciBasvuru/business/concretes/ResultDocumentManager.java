@@ -6,7 +6,7 @@ import codeDev.io.ogrenciBasvuru.business.requests.UpdateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllResultDocumentsResponse;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdResultDocumentResponse;
 import codeDev.io.ogrenciBasvuru.businessRules.ResultDocumentBusinessRules;
-import codeDev.io.ogrenciBasvuru.core.utilities.mappers.ModelMapperService;
+import codeDev.io.ogrenciBasvuru.core.mappers.ModelMapperService;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ApplicationRepository;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ResultDocumentRepository;
 import codeDev.io.ogrenciBasvuru.entities.Application;
@@ -15,8 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
