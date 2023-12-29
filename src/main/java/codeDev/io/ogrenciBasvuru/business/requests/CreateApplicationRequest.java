@@ -15,6 +15,6 @@ import java.util.Date;
 public class CreateApplicationRequest {
     private String countryOfResidence;
     private String desiredDepartment;
-    private LocalDate applicationYear;
+    private int applicationYear;
     private int userId ;
 }

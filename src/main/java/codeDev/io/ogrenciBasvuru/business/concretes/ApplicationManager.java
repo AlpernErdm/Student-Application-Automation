@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,13 +31,16 @@ public class ApplicationManager implements ApplicationService {
     public void add(CreateApplicationRequest createApplicationRequest) {
         //başvurular tablosunda !userId'nın+buulundugumuz yılda 1 başvurusu var mı createapp den userid'sine bakıcaz
         //userId!=userId öyleyse başvuru çek başvurunun current id sini çek ve izin verme
-        this.applicationBusinessRules.checkTheUserHasAnApplicationException(createApplicationRequest.getUserId(), createApplicationRequest.getApplicationYear());
+        Calendar calendar = Calendar.getInstance();
+        int currentYear = calendar.get(Calendar.YEAR);
+        this.applicationBusinessRules.checkTheUserHasAnApplicationException(createApplicationRequest.getUserId(), currentYear);
         User user = this.userRepository.findById(createApplicationRequest.getUserId()).get();
 
         Application application = new Application();
         application.setUser(user);
         application.setCountryOfResidence(createApplicationRequest.getCountryOfResidence());
         application.setDesiredDepartment(createApplicationRequest.getDesiredDepartment());
+        application.setApplicationYear(currentYear);
         applicationRepository.save(application);
 
     }

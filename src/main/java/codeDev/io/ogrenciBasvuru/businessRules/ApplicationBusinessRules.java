@@ -19,8 +19,8 @@ public class ApplicationBusinessRules {
             throw new UserNotFoundException(String.format("Application not found %s", id));
         }
     }
-    public void checkTheUserHasAnApplicationException(Integer id, LocalDate applicationYear){
-        if(this.applicationRepository.existsByUserIdAndApplicationYear(id,applicationYear.getYear())) {
+    public void checkTheUserHasAnApplicationException(Integer id, int applicationYear){
+        if(this.applicationRepository.existsByUserIdAndApplicationYear(id, applicationYear)) {
             throw new ResultNotFoundException("This user has an application :" + id);
         }
     }
