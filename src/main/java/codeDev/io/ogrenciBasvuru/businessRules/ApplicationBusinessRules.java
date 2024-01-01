@@ -1,13 +1,12 @@
 package codeDev.io.ogrenciBasvuru.businessRules;
 
-import codeDev.io.ogrenciBasvuru.core.exceptions.ResultNotFoundException;
+import codeDev.io.ogrenciBasvuru.core.exceptions.ApplicationNotFoundException;
+import codeDev.io.ogrenciBasvuru.core.exceptions.ResultDocumentNotFound;
+import codeDev.io.ogrenciBasvuru.core.exceptions.TheUserHasAnApplicationException;
 import codeDev.io.ogrenciBasvuru.core.exceptions.UserNotFoundException;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ApplicationRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 
 @Service
 @AllArgsConstructor
@@ -16,12 +15,12 @@ public class ApplicationBusinessRules {
 
     public void checkApplicationNotFound(Integer id) {
         if (!this.applicationRepository.existsById(id)) {
-            throw new UserNotFoundException(String.format("Application not found %s", id));
+            throw new ApplicationNotFoundException(String.format("Application not found %s", id));
         }
     }
     public void checkTheUserHasAnApplicationException(Integer id, int applicationYear){
         if(this.applicationRepository.existsByUserIdAndApplicationYear(id, applicationYear)) {
-            throw new ResultNotFoundException("This user has an application :" + id);
+            throw new TheUserHasAnApplicationException("This user has an application :" + id);
         }
     }
 }

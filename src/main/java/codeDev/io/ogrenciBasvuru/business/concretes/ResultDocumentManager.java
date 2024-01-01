@@ -5,12 +5,14 @@ import codeDev.io.ogrenciBasvuru.business.requests.CreateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllResultDocumentsResponse;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdResultDocumentResponse;
+import codeDev.io.ogrenciBasvuru.business.responses.GetByIdUserResponse;
 import codeDev.io.ogrenciBasvuru.businessRules.ResultDocumentBusinessRules;
 import codeDev.io.ogrenciBasvuru.core.mappers.ModelMapperService;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ApplicationRepository;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ResultDocumentRepository;
 import codeDev.io.ogrenciBasvuru.entities.Application;
 import codeDev.io.ogrenciBasvuru.entities.ResultDocument;
+import codeDev.io.ogrenciBasvuru.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +40,7 @@ public class ResultDocumentManager implements ResultDocumentService {
 
     @Override
     public void delete(int id) {
-        this.resultDocumentBusinessRules.checkIfResultDocumentNotFound(id);
+        this.resultDocumentBusinessRules.checkIfResultDocumentIdNotFound(id);
 
         this.resultDocumentRepository.deleteById(id);
 
@@ -54,11 +56,9 @@ public class ResultDocumentManager implements ResultDocumentService {
     @Override
     public GetByIdResultDocumentResponse getById(int id) {
 
-        this.resultDocumentBusinessRules.checkIfResultDocumentNotFound(id);
-
-        ResultDocument resultDocument=this.resultDocumentRepository.findById(id).orElseThrow();
-        this.resultDocumentBusinessRules.checkIfResultDocumentNotFound(id);
-        return this.modelMapperService.forResponse().map(resultDocument,GetByIdResultDocumentResponse.class);
+        this.resultDocumentBusinessRules.checkIfResultDocumentIdNotFound(id);
+        ResultDocument resultDocument = this.resultDocumentRepository.findById(id).orElseThrow();
+        return this.modelMapperService.forResponse().map(resultDocument, GetByIdResultDocumentResponse.class);
     }
 
     @Override

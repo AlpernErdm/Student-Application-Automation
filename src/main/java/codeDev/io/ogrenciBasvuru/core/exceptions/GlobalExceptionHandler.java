@@ -1,9 +1,13 @@
 package codeDev.io.ogrenciBasvuru.core.exceptions;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.HashMap;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -30,13 +34,7 @@ public class GlobalExceptionHandler {
         return problemDetails;
     }
 
-    @ExceptionHandler
-    @ResponseStatus(code = HttpStatus.NOT_FOUND)
-    public ProblemDetails handleResultNotFoundException( ResultNotFoundException resultNotFoundException) {
-        ProblemDetails problemDetails = new ProblemDetails();
-        problemDetails.setMessage(resultNotFoundException.getMessage());
-        return problemDetails;
-    }
+
     @ExceptionHandler
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     public ProblemDetails handleApplicationNotFoundException(ApplicationNotFoundException applicationNotFoundException) {
@@ -66,4 +64,25 @@ public class GlobalExceptionHandler {
         return problemDetails;
     }
 
+    @ExceptionHandler
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    public ProblemDetails handleValidationException(MethodArgumentNotValidException methodArgumentNotValidException) {
+        ValidationProblemDetails validationProblemDetails = new ValidationProblemDetails();
+        validationProblemDetails.setMessage("VALIDATION.EXCEPTION");
+        validationProblemDetails.setValidationErrors(new HashMap<>());
+
+        for (FieldError fieldError : methodArgumentNotValidException.getBindingResult().getFieldErrors()) {
+            validationProblemDetails.getValidationErrors().put(fieldError.getField(), fieldError.getDefaultMessage());
+        }
+
+        return validationProblemDetails;
+    }
+    @ExceptionHandler
+    @ResponseStatus(code=HttpStatus.NOT_FOUND)
+    public ProblemDetails handleResultDocumentNotFound(ResultDocumentNotFound resultDocumentNotFound )
+    {
+        ProblemDetails problemDetails=new ProblemDetails();
+        problemDetails.setMessage(resultDocumentNotFound.getMessage());
+        return problemDetails;
+    }
 }

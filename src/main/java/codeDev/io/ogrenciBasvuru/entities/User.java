@@ -4,6 +4,7 @@ import codeDev.io.ogrenciBasvuru.business.responses.GetByIdResultDocumentRespons
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +30,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
+    @NotNull(message = "Id cannot be empty")
+    @Size(max = 20,min = 3,message = "Name length size be 3 between 20")
     private int id;
 
     @Column(name = "name")
@@ -36,6 +39,7 @@ public class User {
     private String name;
 
     @Column(name = "surname")
+    @Size(min = 3,max = 20,message = "Surname length size be 3 between 20")
     private String surname;
 
     @Column(name = "createDate")
@@ -47,6 +51,7 @@ public class User {
     private Date lastModified;
 
     @Column(name = "email",unique = true)
+    @Size(min = 10,max = 50,message = "Email length size be 10 between 50")
     private String email;
 
     @Column(name = "role") //admin/user

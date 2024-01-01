@@ -4,22 +4,23 @@ import codeDev.io.ogrenciBasvuru.business.abstracts.ResultDocumentService;
 import codeDev.io.ogrenciBasvuru.business.requests.CreateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdResultDocumentResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/resultdocument")
 @RequiredArgsConstructor
-public class ResultDocumentController {
+public class    ResultDocumentController {
     private final ResultDocumentService resultDocumentService;
 
 
     @PostMapping()
-    public void add(@RequestBody CreateResultDocumentRequest createResultDocumentRequest){
+    public void add(@RequestBody @Valid CreateResultDocumentRequest createResultDocumentRequest){
         this.resultDocumentService.add(createResultDocumentRequest);
     }
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody UpdateResultDocumentRequest updateResultDocumentRequest){
+    public void update(@PathVariable int id, @RequestBody @Valid UpdateResultDocumentRequest updateResultDocumentRequest){
         this.resultDocumentService.update(id,updateResultDocumentRequest);
     }
     @DeleteMapping("/{id}")

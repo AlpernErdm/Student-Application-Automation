@@ -6,6 +6,7 @@ import codeDev.io.ogrenciBasvuru.business.requests.UpdateApplicationsRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllApplicationsResponses;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdApplicationResponse;
 import codeDev.io.ogrenciBasvuru.entities.User;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,13 +25,13 @@ public class ApplicationController {
     }
 
     @PostMapping()
-    public void add(@RequestBody CreateApplicationRequest createApplicationRequest) {
+    public void add(@RequestBody @Valid CreateApplicationRequest createApplicationRequest) {
         this.applicationService.add(createApplicationRequest);
 
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody UpdateApplicationsRequest updateApplicationsRequest, User user) {
+    public void update(@PathVariable int id, @RequestBody @Valid UpdateApplicationsRequest updateApplicationsRequest, User user) {
         this.applicationService.update(id, updateApplicationsRequest, user);
     }
 
