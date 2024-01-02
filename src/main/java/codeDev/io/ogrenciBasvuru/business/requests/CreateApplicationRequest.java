@@ -17,4 +17,5 @@ public class CreateApplicationRequest {
     private String desiredDepartment;
     private int applicationYear;
     private int userId ;
+    private LocalDate currentYear;
 }

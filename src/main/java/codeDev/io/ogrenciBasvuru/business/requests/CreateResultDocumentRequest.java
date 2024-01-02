@@ -12,5 +12,5 @@ import lombok.Setter;
 public class CreateResultDocumentRequest {
     private int score;
     private int applicationId;
-
+    private String role;
 }

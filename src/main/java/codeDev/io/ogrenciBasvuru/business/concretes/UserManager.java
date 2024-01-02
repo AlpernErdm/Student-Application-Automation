@@ -9,6 +9,7 @@ import codeDev.io.ogrenciBasvuru.business.requests.UpdateUserRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllUsersResponse;
 import codeDev.io.ogrenciBasvuru.core.mappers.ModelMapperService;
 import codeDev.io.ogrenciBasvuru.entities.User;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -39,11 +40,14 @@ public class UserManager implements UserService {
     @Override
     public void update(UpdateUserRequest updateUserRequest, int id) {
         this.userBusinessRules.checkIfUserIdNotFound(id);
-        User user = this.userRepository.findById(id).orElseThrow();
-        user.setName(updateUserRequest.getName());
-        user.setSurname(updateUserRequest.getSurname());
-        user.setEmail(updateUserRequest.getEmail());
-        user.setRole(updateUserRequest.getRole());
+
+        User user = User.builder()
+                .email(updateUserRequest.getEmail())
+                .role(updateUserRequest.getRole())
+                .name(updateUserRequest.getName())
+                .surname(updateUserRequest.getSurname())
+                .build();
+
         this.userRepository.save(user);
     }
 
@@ -70,30 +74,22 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public Page<User> getUsersPagination(Integer pageNumber, Integer pageSize) {
-
+    public List<GetAllUsersResponse> getUsersPagination(Integer pageNumber, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        return userRepository.findAll(pageable);
+        Page<User> all = userRepository.findAll(pageable);
+
+        return all.stream().map(user -> modelMapperService.forRequest().map(user, GetAllUsersResponse.class)).collect(Collectors.toList());
     }
 
     @Override
-    public Page<User> getUsersPaginationAndSorting(Integer pageNumber, Integer pageSize) {
+    public List<GetAllUsersResponse> getUsersPaginationAndSorting(Integer pageNumber, Integer pageSize) {
         Sort sort = Sort.by(Sort.Direction.ASC, "name");
         Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
-        return userRepository.findAll(pageable);
+        Page<User>all=userRepository.findAll(pageable);
+
+        return all.stream().map(user -> modelMapperService.forRequest().map(user,GetAllUsersResponse.class)).collect(Collectors.toList());
     }
 
-//    @Override
-//    public boolean userHasAppliedThisYear(User user) {
-//        List<Application> applications = user.getApplications();
-//        return applications.stream().anyMatch(sb -> sb.getApplicationYear().getYear()== LocalDate.now().getYear());
-//    }
 
-//    @Override
-//    public boolean ogrenciHasResultDocumentThisYear(User user) {
-//        List<ResultDocument>resultDocuments= user.getResultDocument();
-//        return resultDocuments.stream().anyMatch(sb -> sb.getResultDate().getYear() == LocalDate.now().getYear());
-//
-//    }
 
 }

@@ -20,8 +20,8 @@ public interface UserService {
     void delete(int id);
     List<GetAllUsersResponse> getAll();
     GetByIdUserResponse getById(int id);
-    Page<User> getUsersPagination(Integer pageNumber,Integer pageSize);
-    Page<User> getUsersPaginationAndSorting(Integer pageNumber,Integer pageSize);
+    List<GetAllUsersResponse> getUsersPagination(Integer pageNumber,Integer pageSize);
+    List<GetAllUsersResponse> getUsersPaginationAndSorting(Integer pageNumber,Integer pageSize);
 //    boolean userHasAppliedThisYear(User user);
 //    boolean ogrenciHasResultDocumentThisYear(User user);
 }

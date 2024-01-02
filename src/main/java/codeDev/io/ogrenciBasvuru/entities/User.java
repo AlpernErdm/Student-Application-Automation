@@ -1,20 +1,13 @@
 package codeDev.io.ogrenciBasvuru.entities;
 
-import codeDev.io.ogrenciBasvuru.business.responses.GetByIdResultDocumentResponse;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +19,7 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,7 +38,7 @@ public class User {
 
     @Column(name = "createDate")
     @CreatedDate
-    private Date createDate;
+    private Date createDate; // LccalDateTime
 
     @Column(name = "lastModified")
     @LastModifiedDate

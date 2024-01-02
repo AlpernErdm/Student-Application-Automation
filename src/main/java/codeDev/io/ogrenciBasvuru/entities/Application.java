@@ -4,10 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -26,6 +25,7 @@ import java.util.List;
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 @Entity
+@Builder
 public class Application {
 
     @Id
@@ -56,6 +56,7 @@ public class Application {
 
     @ManyToOne()
     @JoinColumn(name = "userId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
 

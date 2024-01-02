@@ -9,6 +9,8 @@ import codeDev.io.ogrenciBasvuru.entities.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,8 +22,14 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping()
-    public void add(@RequestBody @Valid CreateUserRequest createUserRequest) {
-        this.userService.add(createUserRequest);
+    public ResponseEntity<String> add(@RequestBody @Valid CreateUserRequest createUserRequest) {
+        try{
+            this.userService.add(createUserRequest);
+            return ResponseEntity.ok("Result document added successfully");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong : " + e.getMessage());
+        }
     }
 
     @GetMapping()
@@ -35,23 +43,35 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
-        this.userService.delete(id);
+    public ResponseEntity<String> delete(@PathVariable int id) {
+        try {
+            this.userService.delete(id);
+            return ResponseEntity.ok("Result document deleted successfully");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody @Valid UpdateUserRequest updateUserRequest) {
-        this.userService.update(updateUserRequest, id);
+    public ResponseEntity<String> update(@PathVariable int id, @RequestBody @Valid UpdateUserRequest updateUserRequest) {
+        try {
+            this.userService.update(updateUserRequest, id);
+            return ResponseEntity.ok("Result document updated successfully");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong : " +e.getMessage());
+        }
     }
 
-    @RequestMapping(value = "/pagination/{pageNumber}/{pageSize}", method = RequestMethod.GET)
-    public Page<User> users(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) {
-        return userService.getUsersPagination(pageNumber, pageSize);
 
+    @RequestMapping(value = "/pagination/{pageNumber}/{pageSize}", method = RequestMethod.GET)
+    public List<GetAllUsersResponse> users(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) {
+        return userService.getUsersPagination(pageNumber, pageSize);
     }
 
     @RequestMapping(value = "/paginationSort/{pageNumber}/{pageSize}", method = RequestMethod.GET)
-    public Page<User> sortUser(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) {
+    public List<GetAllUsersResponse> sortUser(@PathVariable Integer pageNumber, @PathVariable Integer pageSize) {
         return userService.getUsersPaginationAndSorting(pageNumber, pageSize);
 
     }

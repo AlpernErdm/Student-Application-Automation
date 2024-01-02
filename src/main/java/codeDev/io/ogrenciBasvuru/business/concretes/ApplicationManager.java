@@ -6,6 +6,7 @@ import codeDev.io.ogrenciBasvuru.business.requests.UpdateApplicationsRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllApplicationsResponses;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdApplicationResponse;
 import codeDev.io.ogrenciBasvuru.businessRules.ApplicationBusinessRules;
+import codeDev.io.ogrenciBasvuru.core.exceptions.ApplicationNotFoundException;
 import codeDev.io.ogrenciBasvuru.core.mappers.ModelMapperService;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ApplicationRepository;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.UserRepository;
@@ -36,13 +37,13 @@ public class ApplicationManager implements ApplicationService {
         this.applicationBusinessRules.checkTheUserHasAnApplicationException(createApplicationRequest.getUserId(), currentYear);
         User user = this.userRepository.findById(createApplicationRequest.getUserId()).get();
 
-        Application application = new Application();
-        application.setUser(user);
-        application.setCountryOfResidence(createApplicationRequest.getCountryOfResidence());
-        application.setDesiredDepartment(createApplicationRequest.getDesiredDepartment());
-        application.setApplicationYear(currentYear);
+        Application application=Application.builder()
+                .countryOfResidence(createApplicationRequest.getCountryOfResidence())
+                .desiredDepartment(createApplicationRequest.getDesiredDepartment())
+                .user(user)
+                .applicationYear(currentYear)
+                .build();
         applicationRepository.save(application);
-
     }
 
     @Override
@@ -59,11 +60,11 @@ public class ApplicationManager implements ApplicationService {
 
     @Override
     public void update(int id, UpdateApplicationsRequest updateApplicationsRequest, User user) {
-        Application application = this.applicationRepository.findById(id).orElseThrow();
+        Application application = this.applicationRepository.findById(id).orElseThrow(() -> new ApplicationNotFoundException("Başvuru bulunamadı"));
+
         application.setDesiredDepartment(updateApplicationsRequest.getDesiredDepartment());
         application.setCountryOfResidence(updateApplicationsRequest.getCountryOfResidence());
         applicationRepository.save(application);
-
     }
 
     @Override

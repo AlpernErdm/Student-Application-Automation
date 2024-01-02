@@ -29,11 +29,13 @@ public class ResultDocumentManager implements ResultDocumentService {
     public void add(CreateResultDocumentRequest createResultDocumentRequest) {
         Application application=this.applicationRepository.findById(createResultDocumentRequest.getApplicationId()).get();
         ResultDocument resultDocument=new ResultDocument();
-//                this.modelMapperService.forRequest()
-//                .map(createResultDocumentRequest,ResultDocument.class);
+                this.modelMapperService.forRequest()
+                .map(createResultDocumentRequest,ResultDocument.class);
         resultDocument.setId(createResultDocumentRequest.getApplicationId());
         resultDocument.setScore(createResultDocumentRequest.getScore());
         resultDocument.setApplication(application);
+
+
         this.resultDocumentRepository.save(resultDocument);
 
     }
