@@ -4,11 +4,6 @@ import codeDev.io.ogrenciBasvuru.business.requests.CreateUserRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateUserRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllUsersResponse;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdUserResponse;
-import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.UserRepository;
-import codeDev.io.ogrenciBasvuru.entities.User;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

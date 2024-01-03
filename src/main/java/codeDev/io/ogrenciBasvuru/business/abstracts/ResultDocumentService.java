@@ -13,6 +13,6 @@ public interface ResultDocumentService {
     void delete(int id);
     void update(int id,UpdateResultDocumentRequest updateResultDocumentRequest);
     GetByIdResultDocumentResponse getById(int id);
-    List<GetAllResultDocumentsResponse> getall();
+    List<GetAllResultDocumentsResponse> getall(String role);
 
 }

@@ -1,5 +1,6 @@
-package codeDev.io.ogrenciBasvuru.core.exceptions;
+package codeDev.io.ogrenciBasvuru.core;
 
+import codeDev.io.ogrenciBasvuru.core.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -83,6 +84,13 @@ public class GlobalExceptionHandler {
     {
         ProblemDetails problemDetails=new ProblemDetails();
         problemDetails.setMessage(resultDocumentNotFound.getMessage());
+        return problemDetails;
+    }
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ProblemDetails handleYouDoNotHavePermission(YouDoNotHavePermission youDoNotHavePermission){
+        ProblemDetails problemDetails=new ProblemDetails();
+        problemDetails.setMessage(youDoNotHavePermission.getMessage());
         return problemDetails;
     }
 }

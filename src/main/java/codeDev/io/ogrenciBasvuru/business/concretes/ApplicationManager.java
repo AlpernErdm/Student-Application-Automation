@@ -10,14 +10,12 @@ import codeDev.io.ogrenciBasvuru.core.exceptions.ApplicationNotFoundException;
 import codeDev.io.ogrenciBasvuru.core.mappers.ModelMapperService;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ApplicationRepository;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.UserRepository;
-import codeDev.io.ogrenciBasvuru.entities.Application;
-import codeDev.io.ogrenciBasvuru.entities.User;
+import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.entities.Application;
+import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -30,8 +28,6 @@ public class ApplicationManager implements ApplicationService {
 
     @Override
     public void add(CreateApplicationRequest createApplicationRequest) {
-        //başvurular tablosunda !userId'nın+buulundugumuz yılda 1 başvurusu var mı createapp den userid'sine bakıcaz
-        //userId!=userId öyleyse başvuru çek başvurunun current id sini çek ve izin verme
         Calendar calendar = Calendar.getInstance();
         int currentYear = calendar.get(Calendar.YEAR);
         this.applicationBusinessRules.checkTheUserHasAnApplicationException(createApplicationRequest.getUserId(), currentYear);

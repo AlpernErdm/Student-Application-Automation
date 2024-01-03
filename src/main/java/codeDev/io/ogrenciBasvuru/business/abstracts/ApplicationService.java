@@ -4,7 +4,7 @@ import codeDev.io.ogrenciBasvuru.business.requests.CreateApplicationRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateApplicationsRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllApplicationsResponses;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdApplicationResponse;
-import codeDev.io.ogrenciBasvuru.entities.User;
+import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.entities.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

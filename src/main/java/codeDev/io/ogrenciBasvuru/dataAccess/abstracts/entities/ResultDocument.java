@@ -1,4 +1,4 @@
-package codeDev.io.ogrenciBasvuru.entities;
+package codeDev.io.ogrenciBasvuru.dataAccess.abstracts.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -6,10 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Table(name = "resultDocument")
 @Getter

@@ -1,9 +1,7 @@
 package codeDev.io.ogrenciBasvuru.businessRules;
 
 import codeDev.io.ogrenciBasvuru.core.exceptions.ApplicationNotFoundException;
-import codeDev.io.ogrenciBasvuru.core.exceptions.ResultDocumentNotFound;
 import codeDev.io.ogrenciBasvuru.core.exceptions.TheUserHasAnApplicationException;
-import codeDev.io.ogrenciBasvuru.core.exceptions.UserNotFoundException;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ApplicationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

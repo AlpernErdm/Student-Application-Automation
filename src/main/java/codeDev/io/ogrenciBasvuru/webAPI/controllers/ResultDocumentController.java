@@ -5,6 +5,7 @@ import codeDev.io.ogrenciBasvuru.business.requests.CreateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllResultDocumentsResponse;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdResultDocumentResponse;
+import codeDev.io.ogrenciBasvuru.businessRules.UserBusinessRules;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ResultDocumentController {
     private final ResultDocumentService resultDocumentService;
+    private final UserBusinessRules userBusinessRules;
 
 
     @PostMapping
@@ -45,9 +47,8 @@ public class ResultDocumentController {
         try {
             this.resultDocumentService.delete(id);
             return ResponseEntity.ok("Result document deleted successfully");
-        }
-        catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong: "+e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong: " + e.getMessage());
         }
     }
 
@@ -56,11 +57,11 @@ public class ResultDocumentController {
         return resultDocumentService.getById(id);
     }
 
-    @GetMapping()
+    @GetMapping("/all")
     @ResponseBody
-    public List<GetAllResultDocumentsResponse> getAllResult(@RequestParam(name = "admin")String role){
-        return  resultDocumentService.getall();
-
+    public List<GetAllResultDocumentsResponse> getAllResult(@RequestParam(name = "role") String role) {
+        this.userBusinessRules.checkYouHavePermission(role);
+        return resultDocumentService.getall(role);
     }
 
 

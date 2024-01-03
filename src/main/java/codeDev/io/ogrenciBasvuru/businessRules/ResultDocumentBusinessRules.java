@@ -1,6 +1,7 @@
 package codeDev.io.ogrenciBasvuru.businessRules;
 
 import codeDev.io.ogrenciBasvuru.core.exceptions.ResultDocumentNotFound;
+import codeDev.io.ogrenciBasvuru.core.exceptions.YouDoNotHavePermission;
 import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.ResultDocumentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ public class ResultDocumentBusinessRules {
             throw new ResultDocumentNotFound(String.format("Result Document not found this Id: %s",id));
         }
     }
+
+
 
 
 }
