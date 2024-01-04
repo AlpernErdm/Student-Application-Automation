@@ -8,7 +8,7 @@ import codeDev.io.ogrenciBasvuru.business.requests.CreateUserRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateUserRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllUsersResponse;
 import codeDev.io.ogrenciBasvuru.core.mappers.ModelMapperService;
-import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.entities.User;
+import codeDev.io.ogrenciBasvuru.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

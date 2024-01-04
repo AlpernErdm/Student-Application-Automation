@@ -18,18 +18,29 @@ public class UserBusinessRules {
         }
 
     }
-    public void checkIfUserEmailExists(String email){
-        if(this.userRepository.existsByEmail(email)){
+
+    public void checkIfUserEmailExists(String email) {
+        if (this.userRepository.existsByEmail(email)) {
             throw new EmailAlreadyExistsException("Email already exists");
         }
     }
+
     public void checkIfUserIdNotFound(Integer id) {
         if (!this.userRepository.existsById(id)) {
             throw new UserNotFoundException(String.format("There is no one with this ID: %s", id));
         }
     }
-    public void checkYouHavePermission(String role){
-        if (!("admin".equals(role) )) {
+
+    public void checkYouHavePermission(String role) {
+        if (!("admin".equals(role))) {
+            throw new YouDoNotHavePermission("Invalid role for accessing data.");
+
+        }
+
+    }
+
+    public void checkYouHavePermissionForAdd(String role) {
+        if (!("admin".equals(role))) {
             throw new YouDoNotHavePermission("Invalid role for accessing data.");
 
         }

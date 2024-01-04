@@ -6,9 +6,9 @@ import codeDev.io.ogrenciBasvuru.business.requests.UpdateResultDocumentRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllResultDocumentsResponse;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdResultDocumentResponse;
 import codeDev.io.ogrenciBasvuru.businessRules.UserBusinessRules;
+import codeDev.io.ogrenciBasvuru.core.Result.Result;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,34 +22,33 @@ public class ResultDocumentController {
     private final UserBusinessRules userBusinessRules;
 
 
-    @PostMapping
-    public ResponseEntity<String> add(@RequestBody @Valid CreateResultDocumentRequest createResultDocumentRequest) {
-        try {
-            this.resultDocumentService.add(createResultDocumentRequest);
-            return ResponseEntity.ok("Result document added successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong : " + e.getMessage());
-        }
+    @PostMapping("/add")
+    @ResponseBody
+    public ResponseEntity<Result> add(@RequestBody @Valid CreateResultDocumentRequest createResultDocumentRequest,@RequestParam(name = "role") String role) {
+        this.userBusinessRules.checkYouHavePermission(role);
+        return ResponseEntity.ok().body(resultDocumentService.add(createResultDocumentRequest));
+
+    }
+    @GetMapping("/all")
+    @ResponseBody
+    public List<GetAllResultDocumentsResponse> getAllResult(@RequestParam(name = "role") String role) {
+        this.userBusinessRules.checkYouHavePermission(role);
+        return resultDocumentService.getall(role);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> update(@PathVariable int id, @RequestBody @Valid UpdateResultDocumentRequest updateResultDocumentRequest) {
-        try {
             this.resultDocumentService.update(id, updateResultDocumentRequest);
             return ResponseEntity.ok("Result document updated successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong : " + e.getMessage());
-        }
+
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable int id) {
-        try {
+
             this.resultDocumentService.delete(id);
             return ResponseEntity.ok("Result document deleted successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong: " + e.getMessage());
-        }
+
     }
 
     @GetMapping("/{id}")
@@ -57,12 +56,7 @@ public class ResultDocumentController {
         return resultDocumentService.getById(id);
     }
 
-    @GetMapping("/all")
-    @ResponseBody
-    public List<GetAllResultDocumentsResponse> getAllResult(@RequestParam(name = "role") String role) {
-        this.userBusinessRules.checkYouHavePermission(role);
-        return resultDocumentService.getall(role);
-    }
+
 
 
 }

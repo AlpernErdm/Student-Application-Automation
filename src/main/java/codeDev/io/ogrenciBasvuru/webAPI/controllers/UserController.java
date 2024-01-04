@@ -21,13 +21,10 @@ public class UserController {
 
     @PostMapping()
     public ResponseEntity<String> add(@RequestBody @Valid CreateUserRequest createUserRequest) {
-        try{
-            this.userService.add(createUserRequest);
-            return ResponseEntity.ok("Result document added successfully");
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong : " + e.getMessage());
-        }
+
+        this.userService.add(createUserRequest);
+        return ResponseEntity.ok("Result document added successfully");
+
     }
 
     @GetMapping()
@@ -42,24 +39,17 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable int id) {
-        try {
-            this.userService.delete(id);
-            return ResponseEntity.ok("Result document deleted successfully");
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong: " + e.getMessage());
-        }
+
+        this.userService.delete(id);
+        return ResponseEntity.ok("Result document deleted successfully");
+
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<String> update(@PathVariable int id, @RequestBody @Valid UpdateUserRequest updateUserRequest) {
-        try {
-            this.userService.update(updateUserRequest, id);
-            return ResponseEntity.ok("Result document updated successfully");
-        }
-        catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong : " +e.getMessage());
-        }
+
+        this.userService.update(updateUserRequest, id);
+        return ResponseEntity.ok("Result document updated successfully");
     }
 
 

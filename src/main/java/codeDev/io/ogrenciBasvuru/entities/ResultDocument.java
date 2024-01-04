@@ -1,4 +1,4 @@
-package codeDev.io.ogrenciBasvuru.dataAccess.abstracts.entities;
+package codeDev.io.ogrenciBasvuru.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;

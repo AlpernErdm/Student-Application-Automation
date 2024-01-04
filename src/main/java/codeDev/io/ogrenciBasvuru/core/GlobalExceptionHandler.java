@@ -93,4 +93,11 @@ public class GlobalExceptionHandler {
         problemDetails.setMessage(youDoNotHavePermission.getMessage());
         return problemDetails;
     }
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ProblemDetails handleYouHaveNotPermissionForAdd(YouHaveNotPermissionForAdd youHaveNotPermissionForAdd){
+        ProblemDetails problemDetails=new ProblemDetails();
+        problemDetails.setMessage(youHaveNotPermissionForAdd.getMessage());
+        return problemDetails;
+    }
 }

@@ -4,16 +4,18 @@ import codeDev.io.ogrenciBasvuru.business.requests.CreateApplicationRequest;
 import codeDev.io.ogrenciBasvuru.business.requests.UpdateApplicationsRequest;
 import codeDev.io.ogrenciBasvuru.business.responses.GetAllApplicationsResponses;
 import codeDev.io.ogrenciBasvuru.business.responses.GetByIdApplicationResponse;
-import codeDev.io.ogrenciBasvuru.dataAccess.abstracts.entities.User;
+import codeDev.io.ogrenciBasvuru.core.Result.DataResult;
+import codeDev.io.ogrenciBasvuru.core.Result.Result;
+import codeDev.io.ogrenciBasvuru.entities.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public interface ApplicationService {
-    void add(CreateApplicationRequest createApplicationRequest);
-    void delete(int id);
+    Result add(CreateApplicationRequest createApplicationRequest);
+    Result delete(int id);
     GetByIdApplicationResponse getById(int id);
-    void update(int id, UpdateApplicationsRequest updateApplicationsRequest, User user);
+    Result update(int id, UpdateApplicationsRequest updateApplicationsRequest, User user);
     List<GetAllApplicationsResponses> getall();
 
 }
