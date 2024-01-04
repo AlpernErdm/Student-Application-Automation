@@ -24,8 +24,7 @@ public class ResultDocumentController {
 
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<Result> add(@RequestBody @Valid CreateResultDocumentRequest createResultDocumentRequest,@RequestParam(name = "role") String role) {
-        this.userBusinessRules.checkYouHavePermission(role);
+    public ResponseEntity<Result> add(@RequestBody @Valid CreateResultDocumentRequest createResultDocumentRequest) {
         return ResponseEntity.ok().body(resultDocumentService.add(createResultDocumentRequest));
 
     }
