@@ -1,6 +1,8 @@
 # Student Application System
 ```
-## This is a Java Spring Boot project that implements a student application system. The application allows users to manage their application status and result documents with full CRUD (Create, Read, Update, Delete) functionality. Additionally, business rules are implemented to ensure valid operations and workflows.
+## This is a Java Spring Boot project that implements a student application system.
+ The application allows users to manage their application status and result documents with full CRUD (Create, Read, Update, Delete) functionality.
+Additionally, business rules are implemented to ensure valid operations and workflows.
 ```
 ## Features
 ```
