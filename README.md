@@ -11,6 +11,8 @@ Application Status Tracking: Manage and track the current status of student appl
 Result Document Management: Upload, view, and manage result documents for each application.
 Business Rules: Ensure proper validation and logic enforcement throughout the application.
 CRUD Operations: Perform Create, Read, Update, and Delete actions on users, application statuses, and result documents.
+```
+```
  ## **Technologies Used**
 ```
 ```
