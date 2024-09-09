@@ -13,7 +13,7 @@ Business Rules: Ensure proper validation and logic enforcement throughout the ap
 CRUD Operations: Perform Create, Read, Update, and Delete actions on users, application statuses, and result documents.
 ```
 ```
- ## **Technologies Used**
+ ## Technologies Used
 ```
 ```
 - Spring Boot
